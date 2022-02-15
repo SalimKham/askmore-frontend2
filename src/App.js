@@ -20,7 +20,6 @@ import SubjectList from "./components/Admin/SubjectList";
 import GroupeStudentList from "./components/Lists/GroupeStudentList";
 import AddTutorial from "./components/Tutorials/AddTutorial";
 import ViewTuturial from "./components/Tutorials/ViewTuturial";
-import addQuestionnary from "./components/Questionnary/addQuestionnary";
 import Tutorials from "./components/Lists/Tutorials";
 import Chat from "./components/chat/Chat";
 const jwtToken = localStorage.jwtToken;
@@ -51,7 +50,6 @@ class App extends Component {
       items.push(<Route exact path="/subjects" component={SubjectList} />);
     } else if (user.type === 3) {
       items.push(<Route exact path="/newTutorial" component={AddTutorial} />);
-      items.push(<Route exact path="/newQuestionnary/:id" component={addQuestionnary} />);
     }
     items.push(<Route exact path="/viewTutorial/:id" component={ViewTuturial} />);
     
