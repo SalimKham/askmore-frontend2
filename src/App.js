@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./components/Layout/Header";
-
-import How from "./components/Layout/How";
 import Landing from "./components/Layout/Landing";
 import Login from "./components/users/Login";
 import Confirmation from "./components/users/Confirmation";
@@ -25,7 +23,6 @@ import ViewTuturial from "./components/Tutorials/ViewTuturial";
 import addQuestionnary from "./components/Questionnary/addQuestionnary";
 import Tutorials from "./components/Lists/Tutorials";
 import Chat from "./components/chat/Chat";
-import Editor from "./components/Editor";
 const jwtToken = localStorage.jwtToken;
 if (jwtToken) {
   setJWTToken(jwtToken);

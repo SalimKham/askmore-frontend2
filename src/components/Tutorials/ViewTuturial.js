@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTutorial, deleteQuestionnary, getTutorial, getContent } from '../../actions/TutorialAction';
-import { SERVER_URL } from '../../actions/types';
+
 import CommentList from '../Lists/CommentList';
 import { Link } from 'react-router-dom'
 

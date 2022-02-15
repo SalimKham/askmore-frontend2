@@ -69,7 +69,6 @@ class GroupeList extends Component {
         let listItems = [];
         const list = this.props.groupe.list;
         const id_user = this.props.user.user.id;
-        const user_name = this.props.user.user.username;
         const { type } = this.props.user.user;
        
         if (list.length > 0) {

@@ -85,8 +85,8 @@ class CommentList extends Component {
       
         e.preventDefault();
         const comment = {
-            idReplay:e.target.id == 1?0:this.state.idReplay,
-            content:e.target.id == 1? this.state.content: this.state.contentReplay
+            idReplay:(""+e.target.id === '1'?0:this.state.idReplay),
+            content:(""+e.target.id === '1'? this.state.content: this.state.contentReplay)
         }
         this.setState({content:"",contentReplay:"",idReplay:0});
 
@@ -111,7 +111,7 @@ class CommentList extends Component {
             <form class="" onSubmit={this.onSubmit} id={type}>
             <fieldset class="textarea-ballon inputs noWidth">
             {this.state.idReplay !== 0 &&  <a onClick = {this.cancelReplay.bind(this)} class="delete-small-icon right"  title="Delete"></a>} 
-                <textarea placeholder="add your comment here ..." name={type==1?"content":"contentReplay"} enter_valid value={type==1? this.state.content:this.contentReplay}
+                <textarea placeholder="add your comment here ..." name={((""+type)==='1')?"content":"contentReplay"} enter_valid value={((""+type)==='1')? this.state.content:this.contentReplay}
                     onChange={this.onChange}
                 ></textarea>
                 <div className="col-md-12  text-right ">

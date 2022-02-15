@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {  acceptStudent, LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList } from '../../actions/groupeActions'
 
 
@@ -63,8 +62,9 @@ class GroupeStudentList extends Component {
                     </tr>
                 )
                 
+                }
                 return null
-            }})
+            })
         }
         return listItems;
 

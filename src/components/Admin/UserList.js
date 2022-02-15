@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserList } from '../../actions/userActions';
-import { SERVER_URL } from '../../actions/types';
 
 import {deleteUser , blockUnBlockUser ,activateUser } from '../../actions/AdminAction';
 import {lastVisitInMinutes}  from '../../components/utils/Time'

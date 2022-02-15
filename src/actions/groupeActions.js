@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JOIN_GROUPE,GET_GROUPE,GET_GROUPE_LIST, GET_ERRORS, ADD_GROUPE, UPDATE_GROUPE_LIST, LEAVE_GROUPE, ACCEPT_STUDENT_IN_GROUPE, GET_GROUPE_LIST_BY_TEACHER, GET_STUDENT_GROUPES } from './types';
+import { JOIN_GROUPE,GET_GROUPE,GET_GROUPE_LIST, GET_ERRORS, ADD_GROUPE, UPDATE_GROUPE_LIST, LEAVE_GROUPE, ACCEPT_STUDENT_IN_GROUPE, GET_GROUPE_LIST_BY_TEACHER } from './types';
 export const getGroupeList = () => async dispatch => {
     try {
         const res = await axios.get("/api/groupe/all/");
