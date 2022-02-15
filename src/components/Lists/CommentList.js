@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComment, getComments , deleteComment } from '../../actions/CommentAction'
 import { SERVER_URL } from '../../actions/types';
-
+import { Link } from 'react-router-dom';
 class CommentList extends Component {
     constructor(props) {
         super(props);
@@ -61,10 +61,10 @@ class CommentList extends Component {
                 listItems.push(
 
                     <div class="block comments">
-                        <img alt='' src={image} class="avatar" />
+                      <Link to={"/profile/" + comment.user.id+"/1"}> <img alt='' src={image} class="avatar" /></Link>
                         <div class="content">
                             <div class="info">
-                                <b><a href="">{comment.user.username}</a> {comment.user.type === 2 ? "(Student)" : "(Teacher)"} </b> at <em>{comment.createdAt}</em>
+                                <b > @{comment.user.username}</b>  at <em style={{color:'#13BE00'}}>{comment.createdAt}</em>
                                 <a  class="edit-small-icon right"  title="Edit"></a>
                                 <a onClick={this.setReplayID.bind(this,comment.id)} class="right reply-small-icon" title="Reply" ></a>
                                 <a class="right delete-small-icon" title="Delete" onClick={this.deleteComment.bind(this,comment.id)}></a>
@@ -72,7 +72,7 @@ class CommentList extends Component {
                               
                             
                             {comment.idReplay !== 0 && this.ShowQuote(list, comment.idReplay)}
-                            <p>{comment.content}</p>
+                            <p style={{fontWeight:'bold'}}>{comment.content}</p>
                             {this.state.idReplay === comment.id && this.showCommentForm(2)}
                         </div>
                     </div>)
@@ -85,8 +85,8 @@ class CommentList extends Component {
       
         e.preventDefault();
         const comment = {
-            idReplay:e.target.id === 1?0:this.state.idReplay,
-            content:e.target.id === 1? this.state.content: this.state.contentReplay
+            idReplay:e.target.id == 1?0:this.state.idReplay,
+            content:e.target.id == 1? this.state.content: this.state.contentReplay
         }
         this.setState({content:"",contentReplay:"",idReplay:0});
 
@@ -108,14 +108,14 @@ class CommentList extends Component {
 
     showCommentForm(type){
         return (
-            <form class="input-groupe" onSubmit={this.onSubmit} id={type}>
+            <form class="" onSubmit={this.onSubmit} id={type}>
             <fieldset class="textarea-ballon inputs noWidth">
             {this.state.idReplay !== 0 &&  <a onClick = {this.cancelReplay.bind(this)} class="delete-small-icon right"  title="Delete"></a>} 
-                <textarea placeholder="add your comment here ..." name={type===1?"content":"contentReplay"} enter_valid value={type===1? this.state.content:this.contentReplay}
+                <textarea placeholder="add your comment here ..." name={type==1?"content":"contentReplay"} enter_valid value={type==1? this.state.content:this.contentReplay}
                     onChange={this.onChange}
                 ></textarea>
                 <div className="col-md-12  text-right ">
-                    <button type="submit" className="btn btn-success" > Send </button>
+                    <button type="submit" className="btn btn-dark" > Send </button>
                 </div>
             </fieldset>
 
@@ -125,7 +125,7 @@ class CommentList extends Component {
     render() {
         const image = this.props.user.user &&  this.props.user.user.photo? ( SERVER_URL+  this.props.user.user.photo+".min.png") : "/images/no-avatar.th.png"
         return (
-            <div>
+            <div class="container">
                 <small class="icon-h3 add-comment">LEAVE REPLY : </small>
                 <br />
                 <div class="block add-comments" style={{ width: "100%" }}>

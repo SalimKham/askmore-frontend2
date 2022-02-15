@@ -8,6 +8,7 @@ import { getGroupeListByTeacher } from '../../actions/groupeActions'
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 export class AddTutorial extends Component {
     constructor() {
         super();
@@ -85,7 +86,7 @@ export class AddTutorial extends Component {
         
         const list = this.props.tutorial.groupes;
         let listItems = [];
-        if (list.length > 0) {
+        if (list && list.length > 0) {
             list.map(groupe => {
                 listItems.push(
                     <label className={this.state.allowed_groupes.indexOf("" + groupe.id) === -1 ? 'checked' : 'checked on'}><input type='checkbox' value={groupe.id} val='' checked="true" onClick={this.addGroupe.bind(this, groupe.id)} /> {groupe.name}</label>
@@ -101,16 +102,15 @@ export class AddTutorial extends Component {
                     <div className="container" >
                         <div className="row" >
                             <div className="col-lg-12">
-                                <div className="input-groupe btn-top align-left">
-                                    <h4 className="margin font14">
-                                        filed : <b style={{ color: "#1F80BF" }}>Field  name</b>
-                                    </h4>
+                            <div class="d-flex flex-row   justify-content-start  ">
+                                    <Link to="/tutorials/1" class="arrowLeft" style={{padding:'5px 0',color:'black'}}>Return to Tutorials list </Link>
+                                   
                                 </div>
                                 <br />
                                 <br />
-                                <form className="profile-form" onSubmit={this.onSubmit}>
+                                <form className="profile-form" style={{marginBottom:"30px"}} onSubmit={this.onSubmit}>
                                     <div className="input-groupe">
-                                        <h3>ADD NEW COURSE</h3>
+                                        <h3>ADD NEW Post</h3>
                                     </div>
                                     <div className="input-groupe">
                                         <label>Module</label>
@@ -122,7 +122,7 @@ export class AddTutorial extends Component {
                                         </div>
                                     </div>
                                     <div className="input-groupe">
-                                        <label>Title</label>
+                                        <label>Title <span style={{ color: "#f00" }}> * </span> </label>
                                         <div className="inputs">
                                             <input type="text" name="title" className="medium" value={this.state.title} min-length="3" notnull
                                                 onChange={this.onChange}
@@ -140,12 +140,7 @@ export class AddTutorial extends Component {
                                                 <div className={this.state.show === 2 ? "radio on" : "radio"}>
                                                     <label className="pdf"><input type="radio" name="c_type" onClick={this.changeContent.bind(this, 2)} /></label>
                                                 </div>
-                                                <div className={this.state.show === 3 ? "radio on" : "radio"}>
-                                                    <label className="images"><input type="radio" name="c_type" onClick={this.changeContent.bind(this, 3)} /></label>
-                                                </div>
-                                                <div className={this.state.show === 4 ? "radio on" : "radio"}>
-                                                    <label className="swf"><input type="radio" name="c_type" onClick={this.changeContent.bind(this, 4)} /></label>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -219,6 +214,7 @@ export class AddTutorial extends Component {
 }
 const mapStateToProps = state => ({
     tutorial: state.tutorial
+    
 })
 export default connect(mapStateToProps, { getGroupeListByTeacher, getSubjectList, addTutorial })(AddTutorial);
 

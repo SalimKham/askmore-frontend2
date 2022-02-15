@@ -188,8 +188,8 @@ class Chat extends Component {
 
     createChatBox() {
         const result =
-            <div id="chat_box" style={{ width: "400px" }}>
-                <div class="title" onClick={this.minimizeChatBox} style={{ backgroundColor: "#155EB6", color: "white" }}><span id="state" class={this.state.chat_box_user.state === 2 ? "online" : "offline"}></span>{this.state.chat_box_user.username}<a style={{ backgroundColor: "white" }} onClick={this.closeChatBox.bind(this)} class="remove" ></a><a style={{ backgroundColor: "white" }} onClick={this.minimizeChatBox} class="hide" ></a></div>
+            <div id="chat_box" style={{ width: "350px" }}>
+                <div class="title" onClick={this.minimizeChatBox} style={{ backgroundColor: "black", color: "white" }}><span id="state" class={this.state.chat_box_user.state === 2 ? "online" : "offline"}></span>{this.state.chat_box_user.username}<a style={{ backgroundColor: "white" }} onClick={this.closeChatBox.bind(this)} class="remove" ></a><a style={{ backgroundColor: "white" }} onClick={this.minimizeChatBox} class="hide" ></a></div>
                 {!this.state.minimize_chat_box && <div class="box_body">
                     <div class="msg_list"><a href="#" class="more">view more</a><ul style={{ overflowY: "auto" }}>
                         {this.createMessagesList()}
@@ -202,8 +202,8 @@ class Chat extends Component {
                     ></textarea>
 
                         <div className="col-md-12  text-right ">
-                            <button type="submit" className="btn btn-success btn-sm" onClick={this.onSubmit} > Send </button>
-                            <button  className="btn btn-primary btn-sm" onClick={this.showOrHideEmojis.bind(this)} > Emoji </button>
+                            <button type="submit" className="btn btn-success btn-sm" onClick={this.onSubmit} style={{color:'white',backgroundColor:'#12B800'}}> Send </button>
+                            <button  className="btn btn-primary btn-sm float-end bg-dark" onClick={this.showOrHideEmojis.bind(this)} > Emoji </button>
                         </div>
                     </div>
 
@@ -225,20 +225,10 @@ class Chat extends Component {
             <div >
                 {!this.state.show && <a id="chat_toggle" onClick={this.showOrHide.bind(this)} className="bold align-center" >Chat</a>}
                 {this.state.show && <div id="user_online" style={{ top: "100px" }} >
-                    <div class="title" style={{ backgroundColor: "black", top: "100px", color: "white" }}>
+                    <div class="title" onClick={this.showOrHide.bind(this)}  style={{ backgroundColor: "black", top: "100px", color: "white" }}>
                         <span class="chat-icon" ></span>Users
 	        	</div>
-                    <div class="config" style={{ backgroundColor: "#155EB6" }}>
-                        <span class="configuration" >
-                            <div class="status">
-                                <a href="#" class="offline">offline</a>
-                                <a href="#" class="online">online</a>
-                            </div>
-                        </span>
-                        <a href="#" class="scrollup" ></a>
-                        <a href="#" class="scrolldown" ></a>
-                        <a onClick={this.showOrHide.bind(this)} class="hide" ></a>
-                    </div>
+                    
                     <div class="scroll">
                         <ul>
                             {this.createUsersList()}

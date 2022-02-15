@@ -1,9 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { GET_SUBJECT_LIST, GET_GROUPE_LIST_BY_TEACHER, GET_TUTORIAL, ADD_COMMENT, DELETE_QUESTIONNARY, GET_ALL_TUTORIALS } from "../actions/types";
+import {GET_TOTAL, GET_SUBJECT_LIST, GET_GROUPE_LIST_BY_TEACHER, GET_TUTORIAL, ADD_COMMENT, DELETE_QUESTIONNARY, GET_ALL_TUTORIALS } from "../actions/types";
 
 const initialState = {
     groupes: {},
     list: null,
+    total:0,
     selected: null,
     subjects: {}
 };
@@ -45,6 +46,11 @@ export default function (state = initialState, action) {
                 ...state,
                 comments: updateNbrComment(state)
             }
+            case GET_TOTAL:
+                return {
+                    ...state,
+                    total: action.payload
+                }
 
         default:
             return state;

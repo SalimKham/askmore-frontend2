@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TUTORIAL, DELETE_QUESTIONNARY, GET_ALL_TUTORIALS, GET_ERRORS } from './types';
+import { GET_TOTAL, GET_TUTORIAL, DELETE_QUESTIONNARY, GET_ALL_TUTORIALS, GET_ERRORS } from './types';
 export const addTutorial = (id_subject ,allowedGroupes, tutorial , file) => async dispatch => {
     try {
      
@@ -41,7 +41,17 @@ export const addQuestionnaryToTutorial = (id_subject , questions , responses) =>
     }
 }
 
-
+export const getTotal = () => async dispatch => {
+    try {
+        const res = await axios.get("/api/tutorial/total");
+       dispatch({
+        type: GET_TOTAL,
+        payload: res.data
+    })
+    } catch (err) {
+      
+    }
+}
 export const deleteQuestionnary = (id ) => async dispatch => {
     try {
         if (
@@ -81,20 +91,24 @@ export const getTutorial = (id) => async dispatch => {
     try {
         
 
-       const res =  await axios.get("/api/tutorial/"+id);
+        const res = await axios.get("/api/tutorial/" + id);
        dispatch({
         type: GET_TUTORIAL,
-        payload: res.data
+        payload: { info :res.data, errors: null }
     })
     } catch (err) {
-      
+        dispatch({
+            type: GET_TUTORIAL,
+            payload: { info :null, errors: err.response.data } 
+        })
     }
 }
 
-export const getAllTutorials = () => async dispatch => {
+export const getAllTutorials = (subject,page, range) => async dispatch => {
     try {
-    
-       const res =  await axios.get("/api/tutorial/all");
+        if (!subject)
+            subject = 0;
+       const res =  await axios.get("/api/tutorial/all/"+subject+"/"+page+"/"+range);
       
        dispatch({
         type: GET_ALL_TUTORIALS,

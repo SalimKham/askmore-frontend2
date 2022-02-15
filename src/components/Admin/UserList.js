@@ -66,7 +66,7 @@ class UserList extends Component {
             list.map(user => {
                 listItems.push(
                     <tr class={user.type === 2 ?"table-info":(user.type === 3 ? "table-warning":"")}>
-                    <td><a href={"/profile/"+user[0]}><img alt='' src={user[5]?(SERVER_URL + user[5] + ".min.png") : "/images/no-avatar.th.png"} class="avatar" /></a></td>
+                    <td><a href={"/profile/"+user[0]+"/1"}><img alt='' src={user[5]?( user[5]) : "/images/no-avatar.th.png"} class="avatar" /></a></td>
                     <td>{user[0]}</td>
                     <td>{user[1]}</td>
                     <td>{lastVisitInMinutes(user[7]) + " min ago"}</td>

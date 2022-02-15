@@ -2,6 +2,9 @@ import axios from 'axios';
 import { ADD_COMMENT, GET_ERRORS, GET_COMMENT_BY_TYPE, DELETE_COMMENT } from './types';
 export const addComment = (idSubject,comment) => async dispatch => {
     try {
+        console.log("adding Comment")
+        console.log(comment)
+        console.log(idSubject)
        const res = await axios.post("/api/comment/add/"+idSubject ,comment);
      
        dispatch({

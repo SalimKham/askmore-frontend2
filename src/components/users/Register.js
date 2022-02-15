@@ -12,7 +12,6 @@ class Register extends Component {
             email: "",
             password: "",
             confirmPassword: "",
-            type: "2",
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -32,12 +31,11 @@ class Register extends Component {
         const newUser = {
             "username": this.state.username,
             "email": this.state.email,
-            "type": this.state.type,
             "password": this.state.password,
             "confirmPassword": this.state.confirmPassword,
 
         }
-  this.props.createUser(newUser, this.props.history, this.state.type);
+  this.props.createUser(newUser, this.props.history);
     }
     render() {
         const { errors } = this.state;
@@ -70,22 +68,15 @@ class Register extends Component {
                                 value={this.state.confirmPassword}
                                 onChange={this.onChange}
                             />
-                            <select className="fadeIn third" id="sel1"
-                                name="type"
-                                value={this.state.type}
-                                onChange={this.onChange}
-                            >
-                                <option value="2">Student</option>
-                                <option value="3">Teacher</option>
-                            </select>
+                            
 
                             <div className="input-groupe btn align-center">
-                                <Link to="/" className="btn bg-dark text-white ">Cancel</Link>
-                                <button type="submit" className="btn btn-success" >Sign Up </button>
+                                <Link to="/" className="btn bg-danger text-white ">Cancel</Link>
+                                <button type="submit" className="btn btn-success" style={{backgroundColor:'#12B800'}} >Sign Up </button>
                             </div>
                         </form>
                         <div id="formFooter">
-                            <Link className="underlineHover" to="/login">Already Have Account?</Link>
+                            <Link className="underlineHover" style={{textDecoration:'none', color:'black'}} to="/login">Already Have Account?</Link>
                         </div>
 
                     </div>

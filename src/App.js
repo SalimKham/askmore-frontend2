@@ -61,7 +61,7 @@ class App extends Component {
     items.push(<Route exact path="/profile/:id/:tab" component={Profile} />);
 
     items.push(<Route exact path="/logout" component={logout} />);
-    items.push(<Route exact path="/tutorials" component={Tutorials} />);
+    items.push(<Route exact path="/tutorials/:page" component={Tutorials} />);
     items.push(<Route exact path="/chat" component={Chat} />);
     return items;
   }
@@ -85,8 +85,7 @@ class App extends Component {
             <Switch>
               {loggedIn && this.showLoogedInOptions(user)}
               {!loggedIn && this.showLoggedOutOptions()}
-              <Route path="/how" component={How} />
-              <Route path="/edit" component={Editor} />
+            
               <Route path="/" component={Landing} />
                  
             </Switch>

@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { getGroupe, acceptStudent, LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList } from '../../actions/groupeActions'
+import { Link } from 'react-router-dom';
+import {  acceptStudent, LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList } from '../../actions/groupeActions'
 
 
 
 class GroupeStudentList extends Component {
 
     isAccepted(id, groupe) {
-        if (groupe.acceptedStudents) {
-            if (groupe.acceptedStudents.indexOf(id) !== -1)
+        if (groupe.acceptedUsers) {
+            if (groupe.acceptedUsers.indexOf(id) !== -1)
                 return true;
         }
         return false;
     }
 
-
-    componentWillMount() {
-        this.props.getGroupe(this.props.groupe_id);
-    }
+   
+ 
     leaveGroupe(id, id_student) {
         this.props.LeaveGroupe(id, id_student);
     }
@@ -27,56 +25,46 @@ class GroupeStudentList extends Component {
         this.props.acceptStudent(id_groupe, id_student);
     }
 
-    createGroupeListForUsers() {
+ 
+
+    createGroupeList() {
         let listItems = [];
-        const list = this.props.groupe.students || [];
-        const groupe = this.props.groupe.groupe;
-        if (list && list.length > 0) {
-            let index = 0;
-            list.map(student => {
-                listItems.push(
-                    this.isAccepted(student.id, groupe) &&
-                    <tr class="table-info">
-                        <th scope="row">{index}</th>
-                        <td>{student.id}</td>
-                        <td>{student.username}</td>
-                    </tr>
-                )
-                index++;
-                return null
-            })
-        }
-        return listItems;
-
-    }
-
-
-    createGroupeListForTeacher() {
-        let listItems = [];
-        const list = this.props.groupe.students || [];
-        const groupe = this.props.groupe.groupe;
+        let groupe = null;
+            this.props.groupe.list.map(g => {
+            if (g.id === this.props.groupe_id) {
+                groupe = g;
+                return null;
+                
+            }
+            return null;
+        })
+        const list = groupe.users.split('/') || [];
         const id_user = this.props.user.user.id;
-
+         console.log("list length"+list.length)
         if (list.length > 0) {
-           
-            list.map(student => {
+            
+            list.map(user => {
+                if (user !=="") {
+                   
+                
+                const user_info = user.split(',')
                 listItems.push(
-                    (groupe.owner.id === id_user) &&
+                    
                     <tr >
-
-                        <td>{student.id}</td>
-                        <td>{student.username}</td>
-                        {this.isAccepted(student.id, groupe) && <td className="text-center text-success">  "Approuved"</td>}
-                        {!this.isAccepted(student.id, groupe) && <td className="text-center text-warning">  "Not Approuved.."</td>}
-                        <td className="text-center">
-                            {!this.isAccepted(student.id, groupe) && <button onClick={this.acceptStudent.bind(this, groupe.id, student.id)} className="btn btn-success btn-sm" > Accept</button>}
-                            <button onClick={this.leaveGroupe.bind(this, groupe.id, student.id)} className="btn btn-danger btn-sm" > Delete</button>
-                        </td>
+                      
+                        <td><a href={"/profile/"+user_info[0]+"/1"}>{user_info[0]}</a></td>
+                            <td><a href={"/profile/"+user_info[0]+"/1"}>{user_info[1]}</a></td>
+                        {this.isAccepted(user_info[0], groupe) && <td className="text-center text-success">  "Approuved"</td>}
+                        {!this.isAccepted(user_info[0], groupe) && <td className="text-center text-warning">  "Not Approuved.."</td>}
+                       { groupe.owner+""  === id_user+"" && user_info[0] !== ""+groupe.owner && <td className="text-center">
+                            {!this.isAccepted(user_info[0], groupe) && <button onClick={this.acceptStudent.bind(this, groupe.id, user_info[0])} className="btn btn-success btn-sm" > Accept</button>}
+                            <button onClick={this.leaveGroupe.bind(this, groupe.id, user_info[0])} className="btn btn-danger btn-sm" > Delete</button>
+                        </td>}
                     </tr>
                 )
                 
                 return null
-            })
+            }})
         }
         return listItems;
 
@@ -86,7 +74,7 @@ class GroupeStudentList extends Component {
 
     render() {
         const { type } = this.props.user.user;
-
+     
         return (
 
 
@@ -98,7 +86,7 @@ class GroupeStudentList extends Component {
                 <div class="row" >
                     <div class="col-lg-12">
 
-                        <h3 className="text-center"> List of Stduent </h3>
+                        <h3 className="text-center"> List of Users </h3>
 
 
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -114,7 +102,7 @@ class GroupeStudentList extends Component {
                                 </thead>
                                 <tbody>
 
-                                    {(type === 1 || type === 2) ? this.createGroupeListForUsers() : this.createGroupeListForTeacher()}
+                                   { this.createGroupeList()}
 
                                 </tbody>
 
@@ -136,4 +124,4 @@ const mapStateToProps = state => ({
     user: state.security
 });
 
-export default connect(mapStateToProps, { getGroupe, acceptStudent, LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList })(GroupeStudentList);
+export default connect(mapStateToProps, {  acceptStudent, LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList })(GroupeStudentList);

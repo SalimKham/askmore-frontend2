@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_GROUPE,GET_GROUPE_LIST, GET_ERRORS, ADD_GROUPE, UPDATE_GROUPE_LIST, LEAVE_GROUPE, ACCEPT_STUDENT_IN_GROUPE, GET_GROUPE_LIST_BY_TEACHER, GET_STUDENT_GROUPES } from './types';
+import { JOIN_GROUPE,GET_GROUPE,GET_GROUPE_LIST, GET_ERRORS, ADD_GROUPE, UPDATE_GROUPE_LIST, LEAVE_GROUPE, ACCEPT_STUDENT_IN_GROUPE, GET_GROUPE_LIST_BY_TEACHER, GET_STUDENT_GROUPES } from './types';
 export const getGroupeList = () => async dispatch => {
     try {
         const res = await axios.get("/api/groupe/all/");
@@ -7,7 +7,7 @@ export const getGroupeList = () => async dispatch => {
         dispatch({
             type:  GET_GROUPE_LIST,
             payload: res.data
-        })
+        }) 
     } catch (err) {
         dispatch({
             type: GET_ERRORS,
@@ -71,12 +71,14 @@ export const addGroupe = (newGroupe) => async dispatch => {
 }
 
 
-export const joindGroupe = (id) => async dispatch => {
+export const joindGroupe = (id_groupe) => async dispatch => {
     try {
-        const res = await axios.post("/api/groupe/join/" + id);
+        const result = await axios.post("/api/groupe/join/" + id_groupe);
+        console.log("join groupe")
+        console.log(result)
        dispatch({
-        type: GET_STUDENT_GROUPES,
-        payload: res.data
+        type: JOIN_GROUPE,
+           payload: result.data
     });
 
     } catch (err) {
@@ -88,7 +90,7 @@ export const joindGroupe = (id) => async dispatch => {
 }
 
 
-export const LeaveGroupe = (id_groupe , id_student) => async dispatch => {
+export const LeaveGroupe = (id_groupe , id_user) => async dispatch => {
     try {
         if (
             ! window.confirm(
@@ -96,12 +98,11 @@ export const LeaveGroupe = (id_groupe , id_student) => async dispatch => {
             )
           ) 
           return;
-        await axios.post("/api/groupe/leave/" + id_groupe+"/"+id_student);
+        const result = await axios.post("/api/groupe/leave/" + id_groupe + "/" + id_user);
+       
        dispatch({
         type: LEAVE_GROUPE,
-        payload: {
-            id_student,id_groupe
-        }
+         payload: result.data
     });
 
     } catch (err) {
@@ -114,13 +115,12 @@ export const LeaveGroupe = (id_groupe , id_student) => async dispatch => {
 
 export const acceptStudent = (id_groupe,id_student) => async dispatch => {
     try {
-        console.log("accepting student ");
-        console.log(id_student +"  "+id_groupe);
-        await axios.post("/api/groupe/acceptStudent/" +id_groupe+"/"+id_student);
-        console.log("OK");
+       
+       const result = await axios.post("/api/groupe/acceptStudent/" +id_groupe+"/"+id_student);
+       
        dispatch({
         type: ACCEPT_STUDENT_IN_GROUPE,
-        payload: id_student
+           payload: result.data
     });
 
     } catch (err) {
@@ -135,7 +135,7 @@ export const acceptStudent = (id_groupe,id_student) => async dispatch => {
 
 export const changeGroupeState = (id, index ,state) => async dispatch => {
     try {
-        await axios.post("/api/groupe//update/"+id+"/"+state);
+        await axios.post("/api/groupe/update/"+id+"/"+state);
      
        dispatch({
         type: UPDATE_GROUPE_LIST,

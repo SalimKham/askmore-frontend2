@@ -2,10 +2,10 @@ import axios from 'axios';
 import { GET_ERRORS ,GET_USERS_LIST, GET_PROFILE, GET_STUDENT_GROUPES } from './types';
 import setJWTToken from '../utils/setJWTToken';
 
-export const createUser = (newUser, history, type) => async dispatch => {
+export const createUser = (newUser, history) => async dispatch => {
     try {
 
-        await axios.post("/api/users/register/" + type, newUser);
+        await axios.post("/api/users/register/" , newUser);
         history.push("/login");
         dispatch({
             type: GET_ERRORS,

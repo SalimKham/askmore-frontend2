@@ -82,7 +82,8 @@ class Profile extends Component {
             <div style={{ marginBottom: "50px" }}>
 
                 <h2>PROFILE</h2>
-
+      
+  
                 <div id="page-tabs">
                     <ul>
                         <li className={this.state.selectedTab === 1 ? "selected" : ""} >
@@ -166,7 +167,7 @@ class Profile extends Component {
 
                         <div id="settings" className={this.state.selectedTab === 2 ? "selected" : ""} >
 
-                            <div id="accordion">
+                            <div id="accordion" >
                                 <Link onClick={this.setSelectedSetting.bind(this, 1)} id="accordion-username" className={this.state.selectedSetting === 1 ? "selected" : ""}>Account</Link>
                                 <div id="accordion-username" className={this.state.selectedSetting === 1 ? "selected" : ""}>
                                     <EditAccount />

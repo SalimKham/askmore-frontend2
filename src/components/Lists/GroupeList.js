@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 import {  LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList } from '../../actions/groupeActions'
-import {getStudentGroupes} from '../../actions/userActions'
+
 import GroupeStudentList from './GroupeStudentList';
 
 
@@ -30,10 +30,7 @@ class GroupeList extends Component {
 
     componentWillMount() {
         this.props.getGroupeList();
-        if(this.props.user.user.type === 2){
-            console.log("getting students")
-            this.props.getStudentGroupes();
-        }
+        
 
     }
 
@@ -65,80 +62,42 @@ class GroupeList extends Component {
     }
 
 
-    createGroupeListForStudent() {
-        const { user } = this.props;
-        let listItems = [];
-        const list = this.props.groupe.list||[];
-        if (list.length > 0) {
-           
-            list.map(groupe => {
+ 
 
-                listItems.push(
-                    <tr >
-                        <td>{groupe.id}</td>
-                        <td>{groupe.name}</td>
-                        <td>{groupe.nbr_users}</td>
-                        <td className={groupe.state === 3 ? "text-warning" : (groupe.state === 1 ? "text-success" : "text-danger")}> {groupe.state === 3 ? "WaitingForActivation...." : (groupe.state === 1 ? "Active" : "Blocked")}</td>
-                        <td className="text-center">
-                            {(user.studentGroupes.indexOf("" + groupe.id) === -1) && <button onClick={this.joinGroupe.bind(this, groupe.id)} className="btn btn-success btn-sm">Join</button>}
-                            {((user.studentGroupes.indexOf("" + groupe.id) !== -1) && !this.isAcceptedStudent(groupe)) && <span className="tex-primary"> Not Yet Aprouved!..</span>}
-                            {(user.studentGroupes.indexOf("" + groupe.id) !== -1) && <button onClick={this.leaveGroupe.bind(this, groupe.id, -1)} className="btn btn-warning btn-sm">Leave</button>}
-                        </td>
-                    </tr>
-                )
-                
-                return null
-            })
-        }
-        return listItems;
 
-    }
-    createGroupeListForAdmin() {
-        let listItems = [];
-        const list = this.props.groupe.list||[];
-        if (list.length > 0) {
-            let index = 0;
-            list.map(groupe => {
-                listItems.push(
-
-                    <tr >
-                        <td>{groupe.id}</td>
-                        <td>{groupe.name}</td>
-                        <td>{groupe.nbr_users}</td>
-                        <td className={groupe.state === 3 ? "text-warning" : (groupe.state === 1 ? "text-success" : "text-danger")}> {groupe.state === 3 ? "WaitingForActivation...." : (groupe.state === 1 ? "Active" : "Blocked")}</td>
-                        <td className="text-center">
-                            <button onClick={this.deleteGroupe.bind(this, groupe.id)} className="btn btn-danger btn-sm">Delete</button>
-                            {(groupe.state === 1 || groupe.state === 3) && <button onClick={this.changeGroupeState.bind(this, groupe.id, index, (groupe.state === 1 ? 3 : 1))} className="btn btn-warning btn-sm">{groupe.state === 3 ? "Activate " : "Disactivate"}</button>}
-                        </td>
-                    </tr>
-                )
-                index++;
-                return null
-            })
-        }
-        return listItems;
-
-    }
-
-    createGroupeListForTeacher() {
+    createGroupeList() {
         let listItems = [];
         const list = this.props.groupe.list;
         const id_user = this.props.user.user.id;
+        const user_name = this.props.user.user.username;
+        const { type } = this.props.user.user;
+       
         if (list.length > 0) {
-           
+            let index = 0;
             list.map(groupe => {
+                console.log(groupe)
                 listItems.push(
-                    (groupe.owner.id === id_user) &&
+                   
                     <tr >
                         <td>{groupe.id}</td>
                         <td>{groupe.name}</td>
                         <td>{groupe.nbr_users}</td>
                         <td className={groupe.state === 3 ? "text-warning" : (groupe.state === 1 ? "text-success" : "text-danger")}> {groupe.state === 3 ? "WaitingForActivation...." : (groupe.state === 1 ? "Active" : "Blocked")}</td>
-                        <td className="text-center">
+                        {(type === 1) ? <td className="text-center">
+                            <button onClick={this.deleteGroupe.bind(this, groupe.id)} className="btn btn-danger btn-sm">Delete</button>
+                            {(groupe.state === 1 || groupe.state === 3) && <button onClick={this.changeGroupeState.bind(this, groupe.id, index, (groupe.state === 1 ? 3 : 1))} className="btn btn-warning btn-sm">{groupe.state === 3 ? "Activate " : "Disactivate"}</button>}
+                        </td>:
+                        (""+id_user === ""+groupe.owner) ? <td className="text-center">
                             <button type="button" onClick={this.deleteGroupe.bind(this, groupe.id)} className="btn btn-danger btn-sm">Delete</button>
                             {(groupe.state === 1 || groupe.state === 2) && <button type="button" className="btn btn-warning btn-sm">{groupe.state === 2 ? "Activate " : "Disactivate"}</button>}
-                            <Link className="btn btn-success btn-sm" onClick={this.showStudents.bind(this,groupe.id)}>Users</Link>
-                        </td>
+                            <Link className="btn btn-success btn-sm" onClick={this.showStudents.bind(this, groupe.id)}>Users</Link>
+                        </td>:<td className="text-center">
+                                {(groupe.users.indexOf("" + id_user) === -1) && <button onClick={this.joinGroupe.bind(this, groupe.id)} className="btn btn-success btn-sm">Join</button>}
+                                {(groupe.users.indexOf("" + id_user) !== -1) && (groupe.acceptedUsers.indexOf("" + id_user)=== -1) && <span className="tex-primary"> Not Yet Aprouved!..</span>}
+                                {(groupe.users.indexOf("" + id_user) !== -1)&& <button onClick={this.leaveGroupe.bind(this, groupe.id,id_user)} className="btn btn-warning btn-sm">Leave</button>}
+                            </td>
+                        }   
+                        
                     </tr>
                 )
                 
@@ -243,7 +202,7 @@ class GroupeList extends Component {
                             </thead>
                             <tbody>
 
-                                {type === 1 ? this.createGroupeListForAdmin() : (type === 2 ? this.createGroupeListForStudent() : this.createGroupeListForTeacher())}
+                                {this.createGroupeList()}
 
 
 
@@ -268,4 +227,4 @@ const mapStateToProps = state => ({
     user: state.security
 });
 
-export default connect(mapStateToProps, { getStudentGroupes ,  LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList })(GroupeList);
+export default connect(mapStateToProps, {   LeaveGroupe, joindGroupe, changeGroupeState, deleteGroupe, addGroupe, getGroupeList })(GroupeList);

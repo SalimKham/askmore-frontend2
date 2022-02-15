@@ -42,34 +42,36 @@ class Login extends Component {
         return (
             <div>
                 <div class="wrapper fadeInDown">
-                    <div id="formContent">
-                        <h2>Log in</h2>
+                    <div id="formContent" >
+                        <h2 >Log in</h2>
                         {errors.username && <div class="alert alert-danger">
                             {errors.username} OR  {errors.password}
                         </div>}
                         {errors.error && <div class="alert alert-danger">
                             {errors.error}
                         </div>}
-                        <form onSubmit={this.onSubmit}>
+                        <form  onSubmit={this.onSubmit}>
+                              
                             <input type="text" class="fadeIn third" name="username" placeholder="user name"
                                 value={this.state.username}
                                 onChange={this.onChange}
                             />
+                            <br/>
                             <input type="password" class="fadeIn third" name="password" placeholder="password"
                                 value={this.state.password}
                                 onChange={this.onChange}
                             />
-
-                            <div className="input-groupe btn align-center">
-                                <Link to="/" className="btn bg-dark text-white">Cancel</Link>
-                                <button type="submit" className="btn btn-success" >Login </button>
+   
+                            <div className="btn-group  align-center">
+                                <Link to="/" className="btn bg-danger text-white">Cancel</Link>
+                                <button type="submit" className="btn text-white" style={{backgroundColor:'#12B800'}} >Login </button>
                             </div>
                         </form>
 
 
-                        <div id="formFooter">
-                            <Link class="underlineHover" to="">Forgot Password?</Link>
-                            <Link class="underlineHover" to="/register">Sign up</Link>
+                        <div id="formFooter" >
+                            <Link class="underlineHover " style={{textDecoration:'none', color:'black'}} to="">Forgot Password?</Link>
+                            <Link class="underlineHover" style={{textDecoration:'none', color:'black'}}  to="/register">Sign up</Link>
                         </div>
 
                     </div>
