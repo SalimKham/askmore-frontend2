@@ -106,7 +106,7 @@ export const getTutorial = (id) => async dispatch => {
 
 export const getAllTutorials = (subject,page, range) => async dispatch => {
     try {
-        if (!subject)
+        if (!subject|| subject==='')
             subject = 0;
        const res =  await axios.get("/api/tutorial/all/"+subject+"/"+page+"/"+range);
       

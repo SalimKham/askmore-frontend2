@@ -123,7 +123,7 @@ export const getFieldList = () => async dispatch => {
 export const getSubjectList = () => async dispatch => {
     try {
         const res = await axios.get("/api/admin/field/subject/all");
-       console.log(res.data);
+   
         dispatch({
             type:  GET_SUBJECT_LIST,
             payload: res.data
@@ -138,14 +138,14 @@ export const getSubjectList = () => async dispatch => {
 
 export const deleteUser = (id ) => async dispatch => {
     try {
-         console.log("deleting");
+         
         if (
             ! window.confirm(
               "Are you sure? This will delete this User."
             )
           ) 
           return;
-         console.log("deleteing from serfver")
+       
         await axios.delete("/api/admin/deleteUser/" + id);
         dispatch({
             type:   UPDATE_USER_STATE,
@@ -164,7 +164,7 @@ export const deleteUser = (id ) => async dispatch => {
 
 export const deleteField = (id ) => async dispatch => {
     try {
-         console.log("deleting");
+         
         if (
             ! window.confirm(
               "Are you sure? This will delete this User."
@@ -189,7 +189,7 @@ export const deleteField = (id ) => async dispatch => {
 }
 export const deleteSubject = (id ) => async dispatch => {
     try {
-         console.log("deleting");
+         
         if (
             ! window.confirm(
               "Are you sure? This will delete this User."

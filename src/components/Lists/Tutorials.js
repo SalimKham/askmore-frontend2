@@ -19,7 +19,6 @@ class Tutorials extends Component {
        
     }
     componentWillMount() {
-        console.log("comp will mount")
         this.props.getTotal();
         this.props.getSubjectList();
         this.props.getAllTutorials(this.state.subject, Number(this.props.match.params.page)- 1 , this.state.range);
@@ -54,7 +53,7 @@ class Tutorials extends Component {
     }
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
-        this.props.getAllTutorials(e.target.value);
+        this.props.getAllTutorials(e.target.value, Number(this.props.match.params.page)- 1 , this.state.range);
 
     }
     showTutorials() {
@@ -96,7 +95,6 @@ class Tutorials extends Component {
         return listItems;
     }
     render() {
-        console.log("render")
         const t = Number(this.props.tutorial.total)
         const numberOp = t / 4;
         const maxPages = t % 4 === 0 ? parseInt(numberOp) : parseInt(numberOp) + 1;

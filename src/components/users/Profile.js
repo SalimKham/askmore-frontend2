@@ -42,17 +42,17 @@ class Profile extends Component {
 
     showAdminTabs() {
         let items = [];
-        items.push(<li className={this.state.selectedTab === 4 ? "selected" : ""}  >
+        items.push(<li className={ "bold "+(this.state.selectedTab === 4 ? "selected" : "")}  >
             <div></div>
             <a href="#" id="groupes" onClick={this.setSelectedTab.bind(this, 4)}>Fields</a>
             <div class="last"></div>
         </li>);
-        items.push(<li className={this.state.selectedTab === 5 ? "selected" : ""}  >
+        items.push(<li className={"bold "+(this.state.selectedTab === 5 ? "selected" : "")}  >
             <div></div>
             <a href="#" id="groupes" onClick={this.setSelectedTab.bind(this, 5)}>Subjects</a>
             <div class="last"></div>
         </li>);
-        items.push(<li className={this.state.selectedTab === 6 ? "selected" : ""}  >
+        items.push(<li className={"bold "+(this.state.selectedTab === 6 ? "selected" : "")}  >
             <div></div>
             <a href="#" id="groupes" onClick={this.setSelectedTab.bind(this, 6)}>Users</a>
             <div class="last"></div>
@@ -81,24 +81,24 @@ class Profile extends Component {
 
             <div style={{ marginBottom: "50px" }}>
 
-                <h2>PROFILE</h2>
+                <h2 >PROFILE</h2>
       
   
                 <div id="page-tabs">
                     <ul>
-                        <li className={this.state.selectedTab === 1 ? "selected" : ""} >
+                        <li className={"bold "+(this.state.selectedTab === 1 ? "selected" : "")} >
                             <div></div>
                             <a id="Profile" onClick={this.setSelectedTab.bind(this, 1)}>Profile</a>
                         </li>
                         {this.state.myProfile && <div>
-                            <li className={this.state.selectedTab === 2 ? "selected" : ""}  >
+                            <li className={"bold "+(this.state.selectedTab === 2 ? "selected" : "")}  >
                                 <div></div>
                                 <a href="#" id="settings" onClick={this.setSelectedTab.bind(this, 2)}>My settings</a>
                                 <div class="last"></div>
                             </li>
 
 
-                            <li className={this.state.selectedTab === 3 ? "selected" : ""}  >
+                            <li className={"bold "+(this.state.selectedTab === 3 ? "selected" : "")}  >
                                 <div></div>
                                 <a href="#" id="groupes" onClick={this.setSelectedTab.bind(this, 3)}>Groupes</a>
                                 <div class="last"></div>
@@ -114,9 +114,9 @@ class Profile extends Component {
                         <div class="profile-cell">
                             <div class="profile-avatar">
                                 <img alt='' src={image} />
-                                <div class="rightSide">
-                                    <a href="#" class="font18 undecorated">{info.username}</a><br />
-                                    <span class="font12">{info.type === 1 ? "Admin" : info.type === 2 ? "Student" : "Teacher"}</span>
+                                <div class="rightSide bg-dark px-2 " style={{borderLeft:'4px #13BE00 solid'}}>
+                                    <a href="#" class="font18 undecorated text-white">{info.username}</a><br />
+                                    {info.type === 1 && <span class="font12 bg-warning text-black bold mx-2 p-1">Admin</span>}
                                 </div>
                             </div>
                             <div class="profile-cv">
@@ -168,17 +168,29 @@ class Profile extends Component {
                         <div id="settings" className={this.state.selectedTab === 2 ? "selected" : ""} >
 
                             <div id="accordion" >
-                                <Link onClick={this.setSelectedSetting.bind(this, 1)} id="accordion-username" className={this.state.selectedSetting === 1 ? "selected" : ""}>Account</Link>
+                            <span >
+                            <i class="fa fa-key mx-2" aria-hidden="true"></i>
+                                    <Link onClick={this.setSelectedSetting.bind(this, 1)} id="accordion-personal" className={this.state.selectedSetting === 1 ? "selected text-dark" : "text-dark"} style={{fontWeight:'bold', textDecoration:'none'}}>Account</Link>
+                                    </span>
                                 <div id="accordion-username" className={this.state.selectedSetting === 1 ? "selected" : ""}>
                                     <EditAccount />
                                 </div>
-                                <Link onClick={this.setSelectedSetting.bind(this, 2)} id="accordion-avatar" className={this.state.selectedSetting === 2 ? "selected" : ""}> Profile picture</Link>
+                                <br />
+                                <br />
+            
+                                <span>
+                                <i class="fa fa-camera mx-2" aria-hidden="true"></i>
+                                    <Link onClick={this.setSelectedSetting.bind(this, 2)} id="accordion-personal" className={this.state.selectedSetting === 2 ? "selected text-dark" : "text-dark"} style={{fontWeight:'bold', textDecoration:'none'}}>Edit Picture</Link>
+                                    </span>
                                 <div id="accordion-avatar" className={this.state.selectedSetting === 2 ? "selected" : ""}>
                                     <CropPhoto />
                                 </div>
-
-
-                                <Link onClick={this.setSelectedSetting.bind(this, 3)} id="accordion-personal" className={this.state.selectedSetting === 3 ? "selected" : ""}>Personal Information</Link>
+                                <br />
+                                <br/>
+                                <span>
+                                    <i class="fa fa-address-card mx-2" aria-hidden="true"></i>
+                                    <Link onClick={this.setSelectedSetting.bind(this, 3)} id="accordion-personal" className={this.state.selectedSetting === 3 ? "selected text-dark" : "text-dark"} style={{fontWeight:'bold', textDecoration:'none'}}>Personal Information</Link>
+                                    </span>
                                 <div id="accordion-personal" className={this.state.selectedSetting === 3 ? "selected" : ""}>
                                     <PersonalDetails />
 
