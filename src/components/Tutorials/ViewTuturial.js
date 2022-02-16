@@ -126,10 +126,10 @@ class ViewTuturial extends Component {
                                     {TutorialInfo.contentType === 1 && <div  dangerouslySetInnerHTML={{ __html: TutorialInfo.content }}></div>}
                                     {TutorialInfo.contentType === 2 && <object data={TutorialInfo.content} type="application/pdf" width="100%" height="800px">
                                         <p> Your Browser doesn't support Pdf viewer Please enable it Or download Pdf  </p>
-                                        <div className="align-center">
-                                            <div className="pdf_options">
-                                                <a  className="bi bi-cloud-download-fill fa-lg"  href ={  TutorialInfo.content} ></a>
-                                                <Link  className="bi bi-cloud-download-fill fa-lg" ></Link>
+                                        <div className="d-flex flex-wrap">
+                                            <div className="border bg-dark">
+                                                <a  className="fa fa-download fa-lg  mx-1 "  style={{color:'#13BE00'}} href ={  TutorialInfo.content} ></a>
+                                               
                                             </div>
                                         </div>
                                         </object>
