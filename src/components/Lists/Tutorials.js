@@ -65,6 +65,8 @@ class Tutorials extends Component {
 
 
                 <div id="post-frame-small">
+                    {(tutorial.allowedGroupes!== '') && <i class="fa fa-badge text-warning float-end">Private</i>}
+                    {tutorial.allowedGroupes === '' &&<i class="fa fa-badge  float-end " style={{color:'#13BE00',fontSize:'0.9em'}}>Public</i>}
                     <h1 class="title " >
                         <Link to={"/viewTutorial/" + tutorial.id}>
                             <span style={{ color: 'black', fontWeight: 'bold', fontSize: '15px' }} >{tutorial.title}</span>
