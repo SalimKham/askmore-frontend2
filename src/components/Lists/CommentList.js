@@ -3,8 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addComment, getComments, deleteComment } from '../../actions/CommentAction'
-import { SERVER_URL } from '../../actions/types';
-import { Link } from 'react-router-dom';
+
 class CommentList extends Component {
     constructor(props) {
         super(props);
@@ -114,7 +113,7 @@ class CommentList extends Component {
                             <button type="submit" className="btn btn-sm float-end" style={{backgroundColor:"#13BE00"}} > <i class="fa fa-share-square" aria-hidden="true"></i> </button>
                         </div>
                     <div class="media-body ">
-                        <textarea style={{ marginLeft: '30px' }} placeholder="add your comment here ..." name={(("" + type) === '1') ? "content" : "contentReplay"} enter_valid value={(("" + type) === '1') ? this.state.content : this.contentReplay} enter_valid onChange={this.onChange} ></textarea>
+                        <textarea style={{ marginLeft: '30px' }} placeholder="add your comment here ..." name={(("" + type) === '1') ? "content" : "contentReplay"} enter_valid value={(("" + type) === '1') ? this.state.content : this.contentReplay}  onChange={this.onChange} ></textarea>
                         
                     </div>
 
